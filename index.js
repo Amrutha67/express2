@@ -1,22 +1,34 @@
 var abc=require('express')
+var bodyParser = require('body-parser')
+
+
 var myapp=abc()
-myapp.get('/' ,(req,res)=>{
-    res.send("Hiiii")
+myapp.use(bodyParser.urlencoded({ extended: false }))
+ 
+// parse application/json
+myapp.use(bodyParser.json())
 
+myapp.post('/name',(req,res)=>{
+    var getName=req.body.name
+    res.send(getName)
 })
-myapp.get('/name',(req,res)=>{
-    res.send("Amrutha Padman")
-})
-myapp.get('/place',(req,res)=>{
-    res.send("Wayanad")
-})
-myapp.get('/Qualification',(req,res)=>{
-    res.send("Btech")
-})
-myapp.get('/Course',(req,res)=>{
-    res.send("Mobile Application Development")
+myapp.get('/n',(req,res)=>{
+    
+    res.send("Welcome to my website")
 })
 
-myapp.listen(3000,()=>{
+myapp.post('/add',(req,res)=>{
+    var getNum1=parseFloat(req.body.num1)
+    var getNum2=parseFloat(req.body.num2)
+    var result=getNum1+getNum2
+    res.json({"result":result})
+
+
+})
+
+
+
+
+myapp.listen(process.env.PORT || 3000,()=>{
     console.log("running http://localhost:3000")
 })
